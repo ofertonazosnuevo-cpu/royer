@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💘 Sorpresa Romántica 💘</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Georgia', serif;
+        background: linear-gradient(135deg, #ff4d6d, #d084ff, #ff92b0);
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    /* Pantalla inicial */
+    #pantalla-inicial {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        backdrop-filter: blur(4px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        color: white;
+        z-index: 10;
+        cursor: pointer;
+    }
+
+    #pantalla-inicial h1 {
+        font-size: 2.5em;
+        margin: 0;
+        animation: pulse 1.5s infinite;
+        text-shadow: 0 0 10px #fff, 0 0 20px #ff8ab8, 0 0 30px #ff5c9d;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 0.8; }
+        50% { transform: scale(1.1); opacity: 1; }
+        100% { transform: scale(1); opacity: 0.8; }
+    }
+
+    /* Corazones flotando */
+    .corazon {
+        position: absolute;
+        bottom: -20px;
+        font-size: 20px;
+        color: #ffb6c1;
+        animation: subir 6s linear infinite;
+        opacity: 0.7;
+        text-shadow: 0 0 5px #fff, 0 0 10px #ff8ab8;
+    }
+
+    @keyframes subir {
+        0% { transform: translateY(0) scale(1); opacity: 0.8; }
+        100% { transform: translateY(-120vh) scale(1.8); opacity: 0; }
+    }
+
+    /* Contenedor principal */
+    .container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+        padding: 25px;
+        color: white;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(12px);
+        padding: 35px;
+        width: 90%;
+        max-width: 500px;
+        border-radius: 25px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
+        animation: fadeIn 1.5s ease forwards;
+        opacity: 0;
+        border: 2px solid rgba(255,255,255,0.25);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+        font-size: 2em;
+        color: #fff;
+        text-shadow: 0 0 10px #fff, 0 0 20px #ff8ab8, 0 0 30px #ff5c9d;
+    }
+
+    p {
+        font-size: 1.2em;
+        line-height: 1.6em;
+        color: #fff;
+        text-shadow: 0 0 5px #fff;
+    }
+
+    .btn {
+        margin-top: 20px;
+        display: inline-block;
+        padding: 15px 28px;
+        background: linear-gradient(45deg, #ff3b6f, #ff609d);
+        color: white;
+        text-decoration: none;
+        border-radius: 15px;
+        font-weight: bold;
+        font-size: 1.1em;
+        transition: 0.3s;
+        box-shadow: 0 5px 20px rgba(255,0,100,0.3);
+    }
+
+    .btn:hover { 
+        background: linear-gradient(45deg, #ff609d, #ff3b6f);
+        transform: scale(1.05);
+    }
+</style>
+</head>
+<body>
+
+<!-- Pantalla inicial -->
+<div id="pantalla-inicial" onclick="iniciarSorpresa()">
+    <h1>💘 Toca para ver tu sorpresa 💘</h1>
+</div>
+
+<!-- Música de fondo -->
+<audio id="musica" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Corazones flotando -->
+<div id="corazones"></div>
+
+<!-- Contenido principal -->
+<div class="container">
+    <div class="card" id="contenido">
+        <h1>Para Ti, Princesa 💖</h1>
+        <p>Felicidades por tu increíble calificación 💕<br>¡Eres la mejor! 😘</p>
+        <a class="btn" href="https://wa.me/?text=Gracias%20por%20la%20sorpresa%20💘">Responder 💬</a>
+    </div>
+</div>
+
+<script>
+function iniciarSorpresa() {
+    // Oculta la pantalla inicial
+    document.getElementById("pantalla-inicial").style.display = "none";
+
+    // Muestra el contenido principal
+    document.getElementById("contenido").style.opacity = "1";
+
+    // Reproduce música
+    const audio = document.getElementById("musica");
+    audio.play().catch(()=>{}); // Previene error si móvil bloquea reproducción automática
+
+    // Crea corazones flotantes
+    setInterval(()=>{
+        const corazon = document.createElement("div");
+        corazon.classList.add("corazon");
+        corazon.style.left = Math.random()*100 + "vw";
+        corazon.style.fontSize = (20 + Math.random()*25) + "px";
+        const colores = ["💖","💗","💘","💞"];
+        corazon.innerHTML = colores[Math.floor(Math.random()*colores.length)];
+        document.getElementById("corazones").appendChild(corazon);
+        setTimeout(()=>corazon.remove(),6000);
+    },300);
+}
+</script>
+
+</body>
+</html>
